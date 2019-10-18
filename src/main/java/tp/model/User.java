@@ -15,10 +15,6 @@ public class User {
     private String email;
     private String password;
 
-    @Transient
-    @Autowired
-    private List<Object> housing;
-
     public User() {}
 
     public User(String email, String password) {
