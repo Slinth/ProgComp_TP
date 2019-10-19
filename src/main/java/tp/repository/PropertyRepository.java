@@ -13,6 +13,7 @@ public interface PropertyRepository extends CrudRepository<Property, Long> {
     Property findByAddress(String address);
 
     List<Property> findByCapacity(int capacity);
+    List<Property> findAll();
     List<Property> findAllSorted(Sort sort);
 
     @Query("SELECT p FROM Property p WHERE p.price < ?1")

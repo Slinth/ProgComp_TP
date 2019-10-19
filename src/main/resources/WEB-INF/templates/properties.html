@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Properties</title>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Address</th>
+                    <th>Capacity</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center">
+                <tr th:if="${propertiesList.isEmpty()}">
+                    <td colspan="4">Y'a pas d'opérations mg</td>
+                </tr>
+                <tr th:each="property : ${propertiesList}">
+                    <td><span th:text="${property.getType()}"></span></td>
+                    <td><span th:text="${property.getPrice()}"></span></td>
+                    <td><span th:text="${property.getAddress()}"></span></td>
+                    <td><span th:text="${property.getCapacity()}"></span></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>

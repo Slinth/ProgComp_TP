@@ -57,6 +57,14 @@ public class PropertyService {
      * Récupère tous les biens triés par prix croissants
      * @return la liste de biens triée
      */
+    public PropertiesList findAllProperties() {
+        return new PropertiesList(this.propertyRepository.findAll());
+    }
+
+    /**
+     * Récupère tous les biens triés par prix croissants
+     * @return la liste de biens triée
+     */
     public PropertiesList findAllPropertiesSortedByPrice() {
         return new PropertiesList(this.propertyRepository.findAllSorted(JpaSort.unsafe("price")));
     }
