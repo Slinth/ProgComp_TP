@@ -14,6 +14,8 @@ public interface PropertyRepository extends CrudRepository<Property, Long> {
 
     List<Property> findByCapacity(int capacity);
     List<Property> findAll();
+
+    @Query("SELECT p FROM Property p")
     List<Property> findAllSorted(Sort sort);
 
     @Query("SELECT p FROM Property p WHERE p.price < ?1")
