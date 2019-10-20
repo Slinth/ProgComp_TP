@@ -18,6 +18,8 @@ public class PropertyController {
         modelAndView.setViewName("properties");
 
         PropertiesList propertiesList = propertyService.findAllProperties();
+
+        modelAndView.addObject("pageTitle", "All properties");
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
     }

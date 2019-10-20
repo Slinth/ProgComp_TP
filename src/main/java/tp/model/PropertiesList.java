@@ -22,4 +22,8 @@ public class PropertiesList {
                 "propertyList=" + propertyList +
                 '}';
     }
+
+    public boolean isEmpty() {
+        return this.propertyList.isEmpty();
+    }
 }
