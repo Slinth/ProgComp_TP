@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+
+        <style>
+            .main.container{
+                min-height: 100vh;
+            }
+        </style>
+
+        <title>Properties</title>
+    </head>
+    <body>
+        <header th:insert="/fragments/header.html"></header>
+
+        <div class="ui main text container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Address</th>
+                        <th>Capacity</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center">
+                    <tr th:if="${propertiesList.isEmpty()}">
+                        <td colspan="4">Y'a pas de trucs mg</td>
+                    </tr>
+                    <tr th:each="property : ${propertiesList.getPropertyList()}">
+                        <td><span th:text="${property.getType()}"></span></td>
+                        <td><span th:text="${property.getPrice()}"></span></td>
+                        <td><span th:text="${property.getAddress()}"></span></td>
+                        <td><span th:text="${property.getCapacity()}"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer th:insert="/fragments/footer.html"></footer>
+    </body>
+</html>
