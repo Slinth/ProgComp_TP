@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import tp.model.PropertiesList;
+import tp.model.Property;
 import tp.service.PropertyService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static sun.security.krb5.internal.crypto.Nonce.value;
 
@@ -27,23 +31,34 @@ public class PropertyController {
         return modelAndView;
     }
 
-    /*@GetMapping("/properties/filter")
+    @GetMapping("/properties/filter")
     public ModelAndView listPropertiesFilter(
-            @RequestParam(value="type",required=false,defaultValue = "NaN")String type,
-            @RequestParam(value="price_max",required=false, defaultValue = "NaN")String price_max,
-            @RequestParam(value="capacity_max",required=false,defaultValue = "NaN")String capacity_max
+            @RequestParam(value="name",required=true)String name,
+            @RequestParam(value="value",required=true)String value
             ){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("properties");
-
         PropertiesList propertiesList;
-        if(!type.equals("NaN")) propertyService.findAllProperties();
+        switch (name){
+            case "type" :
+                propertiesList = propertyService.findPropertiesByType(value);
+                break;
+            case "price" :
+                propertiesList = propertyService.findPropertiesByMaxPrice(Double.parseDouble(value));
+                break;
+            case "capacity":
+                propertiesList = propertyService.findPropertiesByCapacity(Integer.parseInt(value));
+                break;
+            default:
+                propertiesList = new PropertiesList();
+                break;
+        }
 
 
-        modelAndView.addObject("pageTitle", "All properties");
+        modelAndView.addObject("pageTitle", "Filtred properties");
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
-    }*/
+    }
     @GetMapping("/properties/sort")
     public ModelAndView listPropertiesSorted(
             @RequestParam(value="type",required = true)String sort_elt,

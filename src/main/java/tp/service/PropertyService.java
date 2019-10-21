@@ -97,4 +97,13 @@ public class PropertyService {
     public void saveProperty(Property property) {
         this.propertyRepository.save(property);
     }
+
+    /**
+     * Récupéra la liste des biens en filtrés par le type
+     * @param type type sélectionné
+     * @return propertyList la liste des propriétés.
+     */
+    public PropertiesList findPropertiesByType(String type){
+        return new PropertiesList(this.propertyRepository.findByType(type));
+    }
 }

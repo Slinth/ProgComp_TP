@@ -21,6 +21,9 @@ public interface PropertyRepository extends CrudRepository<Property, Long> {
     @Query("SELECT p FROM Property p WHERE p.price < ?1")
     List<Property> findByMaxPrice(Double price);
 
+    @Query("SELECT p FROM Property p WHERE p.type = ?1")
+    List<Property> findByType(String type);
+
 
 
 
