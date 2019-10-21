@@ -16,27 +16,48 @@
         <header th:insert="/fragments/header.html"></header>
 
         <div class="ui main text container">
+            <h1>Sorting</h1>
             <table>
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Price</th>
-                        <th>Address</th>
-                        <th>Capacity</th>
-                    </tr>
-                </thead>
-                <tbody style="text-align: center">
-                    <tr th:if="${propertiesList.isEmpty()}">
-                        <td colspan="4">Y'a pas de trucs mg</td>
-                    </tr>
-                    <tr th:each="property : ${propertiesList.getPropertyList()}">
-                        <td><span th:text="${property.getType()}"></span></td>
-                        <td><span th:text="${property.getPrice()}"></span></td>
-                        <td><span th:text="${property.getAddress()}"></span></td>
-                        <td><span th:text="${property.getCapacity()}"></span></td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <td>Price</td>
+                    <td><a th:href="@{/properties/sort(type='price',sort_dir='ASC')}"><button class="ui button">ASC</button></a></td>
+                    <td><a th:href="@{/properties/sort(type='price',sort_dir='DES')}"><button class="ui button">DESC</button></a></td>
+                </tr>
+                <tr>
+                    <td>Capatity</td>
+                    <td><a th:href="@{/properties/sort(type='capacity',sort_dir='ASC')}"><button class="ui button">ASC</button></a></td>
+                    <td><a th:href="@{/properties/sort(type='capacity',sort_dir='DESC')}"><button class="ui button">DESC</button></a></td>
+                </tr>
             </table>
+
+
+            <div class="ui warning message" th:if="${propertiesList.isEmpty()}" >
+                <div class="header">
+                    Erreur : la liste est vide
+                </div>
+                QUEL PLAISIR ! Encore une erreur, c'est sans doute parce que vous êtes diminués intellectuellement.
+                <marquee>CHEH !</marquee>
+            </div>
+            <div th:unless="${propertiesList.isEmpty()}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Price</th>
+                            <th>Address</th>
+                            <th>Capacity</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align: center">
+                        <tr th:each="property : ${propertiesList.getPropertyList()}">
+                            <td><span th:text="${property.getType()}"></span></td>
+                            <td><span th:text="${property.getPrice()}"></span></td>
+                            <td><span th:text="${property.getAddress()}"></span></td>
+                            <td><span th:text="${property.getCapacity()}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <footer th:insert="/fragments/footer.html"></footer>
     </body>
