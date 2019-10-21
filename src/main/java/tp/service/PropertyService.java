@@ -1,6 +1,7 @@
 package tp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 import tp.model.PropertiesList;
@@ -65,18 +66,30 @@ public class PropertyService {
      * Récupère tous les biens triés par prix croissants
      * @return la liste de biens triée
      */
-    public PropertiesList findAllPropertiesSortedByPrice() {
-        return new PropertiesList(this.propertyRepository.findAllSorted(JpaSort.unsafe("price")));
+    public PropertiesList findAllPropertiesSortedByPriceASC() {
+        return new PropertiesList(this.propertyRepository.findAllSorted(JpaSort.unsafe(Sort.Direction.ASC,"price")));
     }
-
+    /**
+     * Récupère tous les biens triés par prix décroissants
+     * @return la liste de biens triée
+     */
+    public PropertiesList findAllPropertiesSortedByPriceDESC() {
+        return new PropertiesList(this.propertyRepository.findAllSorted(JpaSort.unsafe(Sort.Direction.DESC,"price")));
+    }
     /**
      * Récupère tous les biens triés par capacité croissantes
      * @return la liste de biens triée
      */
-    public PropertiesList findAllPropertiesSortedByCapacity() {
-        return new PropertiesList(this.propertyRepository.findAllSorted(JpaSort.unsafe("capacity")));
+    public PropertiesList findAllPropertiesSortedByCapacityASC() {
+        return new PropertiesList(this.propertyRepository.findAllSorted(JpaSort.unsafe(Sort.Direction.ASC,"capacity")));
     }
-
+    /**
+     * Récupère tous les biens triés par capacité croissantes
+     * @return la liste de biens triée
+     */
+    public PropertiesList findAllPropertiesSortedByCapacityDESC() {
+        return new PropertiesList(this.propertyRepository.findAllSorted(JpaSort.unsafe(Sort.Direction.DESC,"capacity")));
+    }
     /**
      * Enregistre une propriété dans la BD
      * @param property la propriété à enregistrer

@@ -21,14 +21,14 @@ public class Application {
     @Bean
     public CommandLineRunner demo(PropertyService service) {
         return (args) -> {
-            /* save a few properties
-            service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4));
-            service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2));
-            service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6));
-            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2));
-            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5));
-            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3));
-            */
+            //save a few properties
+//            service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4));
+//            service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2));
+//            service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6));
+//            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2));
+//            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5));
+//            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3));
+
 
             // fetch all properties
             log.info("Properties found with findAll():");
@@ -46,15 +46,27 @@ public class Application {
             log.info("");
 
             // fetch all properties sorted by price
-            log.info("Properties found with findAllPropertiesSortedByPrice():");
+            log.info("Properties found with findAllPropertiesSortedByPriceASC():");
             log.info("--------------------------------------------");
-            service.findAllPropertiesSortedByPrice().getPropertyList().forEach(bauer -> log.info(bauer.toString()));
+            service.findAllPropertiesSortedByPriceASC().getPropertyList().forEach(bauer -> log.info(bauer.toString()));
+            log.info("");
+
+            // fetch all properties sorted by price
+            log.info("Properties found with findAllPropertiesSortedByPriceDESC():");
+            log.info("--------------------------------------------");
+            service.findAllPropertiesSortedByPriceDESC().getPropertyList().forEach(bauer -> log.info(bauer.toString()));
             log.info("");
 
             // fetch all properties sorted by capacity
-            log.info("Properties found with findAllPropertiesSortedByCapacity():");
+            log.info("Properties found with findAllPropertiesSortedByCapacityASC():");
             log.info("--------------------------------------------");
-            service.findAllPropertiesSortedByCapacity().getPropertyList().forEach(bauer -> log.info(bauer.toString()));
+            service.findAllPropertiesSortedByCapacityASC().getPropertyList().forEach(bauer -> log.info(bauer.toString()));
+            log.info("");
+
+            // fetch all properties sorted by capacity
+            log.info("Properties found with findAllPropertiesSortedByCapacityDESC():");
+            log.info("--------------------------------------------");
+            service.findAllPropertiesSortedByCapacityDESC().getPropertyList().forEach(bauer -> log.info(bauer.toString()));
             log.info("");
 
             // fetch properties by max price

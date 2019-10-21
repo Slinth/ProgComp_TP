@@ -46,20 +46,22 @@ public class PropertyController {
     }*/
     @GetMapping("/properties/sort")
     public ModelAndView listPropertiesSorted(
-            @RequestParam(value="type",required = true)String sort_elt
+            @RequestParam(value="type",required = true)String sort_elt,
+            @RequestParam(value="sort_dir",required = false, defaultValue = "ASC")String sort_dir
     ){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("properties");
         PropertiesList propertiesList;
+
         if(sort_elt.equals("price"))
-            propertiesList = propertyService.findAllPropertiesSortedByPrice();
+            propertiesList = (sort_dir.equals("ASC")) ? propertyService.findAllPropertiesSortedByPriceASC() : propertyService.findAllPropertiesSortedByPriceDESC();
         else if(sort_elt.equals("capacity"))
-            propertiesList = propertyService.findAllPropertiesSortedByCapacity();
+            propertiesList = (sort_dir.equals("ASC")) ? propertyService.findAllPropertiesSortedByCapacityASC() : propertyService.findAllPropertiesSortedByCapacityDESC();
         else
             propertiesList = new PropertiesList();
 
 
-        modelAndView.addObject("pageTitle", "All properties");
+        modelAndView.addObject("pageTitle", "All properties sorted");
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
     }
