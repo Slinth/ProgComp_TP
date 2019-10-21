@@ -11,14 +11,22 @@
         <label> User Name : <input type="text" name="username"/></label>
     </div>
     <div>
+        <label> Email: <input type="email" name="email"/> </label>
+    </div>
+    <div>
         <label> Password: <input type="password" name="password"/> </label>
+    </div>
+    <div>
+        <label> Password:
+            <select name="type">
+                <option>Locataire</option>
+                <option>Loueur</option>
+            </select>
+        </label>
     </div>
     <div><input type="submit" value="Sign Up"/></div>
 
     <span th:utext="${systemMessage}"></span>
-    <div>
-        <a th:if="${logged}" th:ref="@{/login}">Login now !</a>
-    </div>
 </form>
 </body>
 </html>
