@@ -6,9 +6,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import tp.model.Authority;
+import tp.model.AuthorityType;
 import tp.model.Property;
+import tp.model.User;
 import tp.repository.PropertyRepository;
+import tp.repository.UserRepository;
 import tp.service.PropertyService;
+import tp.service.UserDetailsServiceImpl;
+
+import java.util.Date;
 
 @SpringBootApplication
 public class Application {
@@ -19,16 +28,20 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(PropertyService service) {
+    public CommandLineRunner demo(PropertyService service, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         return (args) -> {
             //save a few properties
-//            service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4));
-//            service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2));
-//            service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6));
-//            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2));
-//            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5));
-//            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3));
+            /*service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4));
+            service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2));
+            service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6));
+            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2));
+            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5));
+            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3));
 
+            User user = new User("slinth", "dorian@email", bCryptPasswordEncoder.encode("orange12"), new Date(), new Authority(AuthorityType.ROLE_LOUEUR));
+            userRepository.save(user);
+            user = new User("antbns", "antoine@email", bCryptPasswordEncoder.encode("blblbl"), new Date(), new Authority(AuthorityType.ROLE_LOCATAIRE));
+            userRepository.save(user);*/
 
             // fetch all properties
             log.info("Properties found with findAll():");
@@ -74,7 +87,6 @@ public class Application {
             log.info("--------------------------------------------");
             service.findPropertiesByMaxPrice(700.0).getPropertyList().forEach(bauer -> log.info(bauer.toString()));
             log.info("");
-
         };
     }
 
