@@ -21,20 +21,6 @@
     <body>
         <header th:insert="/fragments/header.html"></header>
         <div class="ui main text container">
-<!--            <h1>Sorting</h1>-->
-<!--            <table>-->
-<!--                <tr>-->
-<!--                    <td>Price</td>-->
-<!--                    <td><a th:href="@{/properties/sort(type='price',sort_dir='ASC')}"><button class="ui button">ASC</button></a></td>-->
-<!--                    <td><a th:href="@{/properties/sort(type='price',sort_dir='DES')}"><button class="ui button">DESC</button></a></td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                    <td>Capatity</td>-->
-<!--                    <td><a th:href="@{/properties/sort(type='capacity',sort_dir='ASC')}"><button class="ui button">ASC</button></a></td>-->
-<!--                    <td><a th:href="@{/properties/sort(type='capacity',sort_dir='DESC')}"><button class="ui button">DESC</button></a></td>-->
-<!--                </tr>-->
-<!--            </table>-->
-
             <table>
                 <form th:action="@{/properties/filter}" method="get" class="ui form">
                     <h1 class="ui dividing header">Filtres</h1>
@@ -79,7 +65,6 @@ Statut : disponible | attente | occupe"></i>
                             <th>Addresse</th>
                             <th>Capacité</th>
                             <th>Actions</th>
-
                         </tr>
                     </thead>
                     <tbody style="text-align: center">
@@ -90,7 +75,8 @@ Statut : disponible | attente | occupe"></i>
                             <td><span th:text="${property.getPrice()}"></span></td>
                             <td><span th:text="${property.getAddress()}"></span></td>
                             <td><span th:text="${property.getCapacity()}"></span></td>
-                            <td><a th:href="@{/properties/book(id=${property.getId()})}"><button class="ui button">Réserver</button></a></td>
+                            <td th:if="${property.getStatus()==0}"><a th:href="@{/properties/book(propertyId=${property.getId()})}"><button class="ui button">Réserver</button></a></td>
+                            <td th:unless="${property.getStatus()==0}"><button class="ui button disabled">Réserver</button></td>
                         </tr>
                     </tbody>
                 </table>

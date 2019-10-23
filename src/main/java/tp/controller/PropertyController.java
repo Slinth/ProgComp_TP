@@ -65,4 +65,20 @@ public class PropertyController {
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
     }
+
+    @GetMapping("/properties/book")
+    public ModelAndView bookProperty(
+            @RequestParam(value="propertyId",required=true)String propertyId
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("booking");
+
+        boolean changed = propertyService.updatePropertyStatus(Long.parseLong(propertyId),1);
+        Property p = propertyService.findPropertyById(Long.parseLong(propertyId));
+        modelAndView.addObject("pageTitle", "Book property");
+        modelAndView.addObject("property", p);
+        modelAndView.addObject("changed",changed);
+        return modelAndView;
+    }
+
 }

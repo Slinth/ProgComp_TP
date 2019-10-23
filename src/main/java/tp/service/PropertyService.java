@@ -8,6 +8,8 @@ import tp.model.PropertiesList;
 import tp.model.Property;
 import tp.repository.PropertyRepository;
 
+import java.util.Optional;
+
 @Service("propertyService")
 public class PropertyService {
 
@@ -113,8 +115,24 @@ public class PropertyService {
      * @return propertyList la liste des propriétés
      */
     public PropertiesList findPropertiesByStatus(int status){
-        System.out.println("FIND BY STATUS : "+status);
         return new PropertiesList(this.propertyRepository.findByStatus(status));
+    }
+
+    /***
+     * Modifie le status du bien
+     * @param propertyId Id du bien a modifier
+     * @param status Nouveau statut
+     */
+    public boolean updatePropertyStatus(long propertyId,int status){
+        Property prop = this.propertyRepository.findById(propertyId);
+        if(prop.getStatus()==0) {
+            prop.setStatus(status);
+            this.propertyRepository.save(prop);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 }

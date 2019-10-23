@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+
+    <style>
+        .main.container{
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+    </style>
+
+    <title>Réservation d'un bien</title>
+</head>
+<body>
+<header th:insert="/fragments/header.html"></header>
+<div th:if="${changed}" class="ui main text container">
+    <h1>Réception de votre réservation</h1>
+    <p>Elle sera traité par nos services d'ici quelques jours.</p>
+    <h2>Détail :</h2>
+    <table>
+        <tr>
+            <td>Type</td>
+            <td><span th:text="${property.getType()}"></span></td>
+        </tr>
+        <tr>
+            <td>Adresse</td>
+            <td><span th:text="${property.getAddress()}"></span></td>
+        </tr>
+        <tr>
+            <td>Capacité</td>
+            <td><span th:text="${property.getCapacity()}"></span></td>
+        </tr>
+        <tr>
+            <td>Prix</td>
+            <td><span th:text="${property.getPrice()}"></span> €</td>
+        </tr>
+    </table>
+    <a th:href="@{/properties/}"><button class="ui button">Retour</button></a>
+</div>
+<div th:unless="${changed}" class="ui main text container">
+    <h1>Erreur lors de la réservation</h1>
+    <p>Le bien n'est peut être plus disponible</p>
+    <a th:href="@{/properties/}"><button class="ui button">Retour</button></a>
+</div>
+
+
+<footer th:insert="/fragments/footer.html"></footer>
+</body>
+</html>
