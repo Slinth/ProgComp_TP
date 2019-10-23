@@ -106,4 +106,15 @@ public class PropertyService {
     public PropertiesList findPropertiesByType(String type){
         return new PropertiesList(this.propertyRepository.findByType(type));
     }
+
+    /**
+     * Récupére la liste des biens filtrés par le statut
+     * @param status statut séléctionné (0: Dispo / 1 : En attente de validation / 2 : Non Dispo)
+     * @return propertyList la liste des propriétés
+     */
+    public PropertiesList findPropertiesByStatus(int status){
+        System.out.println("FIND BY STATUS : "+status);
+        return new PropertiesList(this.propertyRepository.findByStatus(status));
+    }
+
 }

@@ -3,11 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
 
         <style>
             .main.container{
                 min-height: 100vh;
                 padding-top: 50px;
+            }
+            .dataTables_filter,.dataTables_length{
+                display:none;
             }
         </style>
 
@@ -15,20 +20,45 @@
     </head>
     <body>
         <header th:insert="/fragments/header.html"></header>
-
         <div class="ui main text container">
-            <h1>Sorting</h1>
+<!--            <h1>Sorting</h1>-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <td>Price</td>-->
+<!--                    <td><a th:href="@{/properties/sort(type='price',sort_dir='ASC')}"><button class="ui button">ASC</button></a></td>-->
+<!--                    <td><a th:href="@{/properties/sort(type='price',sort_dir='DES')}"><button class="ui button">DESC</button></a></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>Capatity</td>-->
+<!--                    <td><a th:href="@{/properties/sort(type='capacity',sort_dir='ASC')}"><button class="ui button">ASC</button></a></td>-->
+<!--                    <td><a th:href="@{/properties/sort(type='capacity',sort_dir='DESC')}"><button class="ui button">DESC</button></a></td>-->
+<!--                </tr>-->
+<!--            </table>-->
+
             <table>
-                <tr>
-                    <td>Price</td>
-                    <td><a th:href="@{/properties/sort(type='price',sort_dir='ASC')}"><button class="ui button">ASC</button></a></td>
-                    <td><a th:href="@{/properties/sort(type='price',sort_dir='DES')}"><button class="ui button">DESC</button></a></td>
-                </tr>
-                <tr>
-                    <td>Capatity</td>
-                    <td><a th:href="@{/properties/sort(type='capacity',sort_dir='ASC')}"><button class="ui button">ASC</button></a></td>
-                    <td><a th:href="@{/properties/sort(type='capacity',sort_dir='DESC')}"><button class="ui button">DESC</button></a></td>
-                </tr>
+                <form th:action="@{/properties/filter}" method="get" class="ui form">
+                    <h1 class="ui dividing header">Filtres</h1>
+                    <div class="fields">
+                        <div class="field">
+                            <select name="name" id="filterType" class="ui fluid dropdown">
+                                <option value="type">Type de bien</option>
+                                <option value="price">Prix Max</option>
+                                <option value="capacity">Capacité Max</option>
+                                <option value="status">Statut</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input type="text" placeholder="filtre" name="value" />
+                            </div>
+                            <i class="question circle icon" title="Type : maison | appartement
+Prix max (exemple : 154)
+Capacité Max (exemple : 4)
+Statut : disponible | attente | occupe"></i>
+                        </div>
+                    </div>
+                    <input type="submit" value="Rechercher" class="ui button">
+                </form>
             </table>
 
 
@@ -40,26 +70,39 @@
                 <marquee>CHEH !</marquee>
             </div>
             <div th:unless="${propertiesList.isEmpty()}">
-                <table>
+                <table id="propertiesTable" class="display">
                     <thead>
                         <tr>
+                            <th>Etat</th>
                             <th>Type</th>
-                            <th>Price</th>
-                            <th>Address</th>
-                            <th>Capacity</th>
+                            <th>Prix</th>
+                            <th>Addresse</th>
+                            <th>Capacité</th>
+                            <th>Actions</th>
+
                         </tr>
                     </thead>
                     <tbody style="text-align: center">
                         <tr th:each="property : ${propertiesList.getPropertyList()}">
+                            <td th:if="${property.getStatus()==0}" style="width:5px;height:5px;background-color: green"></td>
+                            <td th:unless="${property.getStatus()==0}"style="width:5px;height:5px;background-color: red"></td>
                             <td><span th:text="${property.getType()}"></span></td>
                             <td><span th:text="${property.getPrice()}"></span></td>
                             <td><span th:text="${property.getAddress()}"></span></td>
                             <td><span th:text="${property.getCapacity()}"></span></td>
+                            <td><a th:href="@{/properties/book(id=${property.getId()})}"><button class="ui button">Réserver</button></a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <footer th:insert="/fragments/footer.html"></footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready( function () {
+                $('#propertiesTable').DataTable();
+            } );
+        </script>
     </body>
 </html>

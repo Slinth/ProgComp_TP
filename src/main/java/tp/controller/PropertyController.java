@@ -49,6 +49,12 @@ public class PropertyController {
             case "capacity":
                 propertiesList = propertyService.findPropertiesByCapacity(Integer.parseInt(value));
                 break;
+            case "status":
+                if(value.equals("disponible")) value = "0";
+                else if(value.equals("attente")) value = "1";
+                else if(value.equals("occupe"))value = "2";
+                propertiesList = propertyService.findPropertiesByStatus(Integer.parseInt(value));
+                break;
             default:
                 propertiesList = new PropertiesList();
                 break;
@@ -56,27 +62,6 @@ public class PropertyController {
 
 
         modelAndView.addObject("pageTitle", "Filtred properties");
-        modelAndView.addObject("propertiesList", propertiesList);
-        return modelAndView;
-    }
-    @GetMapping("/properties/sort")
-    public ModelAndView listPropertiesSorted(
-            @RequestParam(value="type",required = true)String sort_elt,
-            @RequestParam(value="sort_dir",required = false, defaultValue = "ASC")String sort_dir
-    ){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("properties");
-        PropertiesList propertiesList;
-
-        if(sort_elt.equals("price"))
-            propertiesList = (sort_dir.equals("ASC")) ? propertyService.findAllPropertiesSortedByPriceASC() : propertyService.findAllPropertiesSortedByPriceDESC();
-        else if(sort_elt.equals("capacity"))
-            propertiesList = (sort_dir.equals("ASC")) ? propertyService.findAllPropertiesSortedByCapacityASC() : propertyService.findAllPropertiesSortedByCapacityDESC();
-        else
-            propertiesList = new PropertiesList();
-
-
-        modelAndView.addObject("pageTitle", "All properties sorted");
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
     }

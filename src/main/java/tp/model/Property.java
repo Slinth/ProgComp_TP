@@ -17,14 +17,16 @@ public class Property {
     private Double price;
     private String address;
     private int capacity;
+    private int status;// 0 : dispo - 1 : en att - 2 : occupé
 
     public Property() {}
 
-    public Property(String type, Double price, String address, int capacity) {
+    public Property(String type, Double price, String address, int capacity, int status) {
         this.type = type;
         this.price = price;
         this.address = address;
         this.capacity = capacity;
+        this.status = status;
     }
 
     @Override
@@ -35,6 +37,7 @@ public class Property {
                 ", price=" + price +
                 ", address='" + address + '\'' +
                 ", capacity=" + capacity +
+                ", status=" + status +
                 '}';
     }
 
@@ -76,5 +79,13 @@ public class Property {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

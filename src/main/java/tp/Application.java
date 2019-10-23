@@ -31,17 +31,18 @@ public class Application {
     public CommandLineRunner demo(PropertyService service, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         return (args) -> {
             //save a few properties
-            /*service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4));
-            service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2));
-            service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6));
-            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2));
-            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5));
-            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3));
+            /*service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4,0));
+            service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2,2));
+            service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6,0));
+            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2,0));
+            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5,2));
+            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3,2));
 
             User user = new User("slinth", "dorian@email", bCryptPasswordEncoder.encode("orange12"), new Date(), new Authority(AuthorityType.ROLE_LOUEUR));
             userRepository.save(user);
             user = new User("antbns", "antoine@email", bCryptPasswordEncoder.encode("blblbl"), new Date(), new Authority(AuthorityType.ROLE_LOCATAIRE));
-            userRepository.save(user);*/
+            userRepository.save(user);
+            */
 
             // fetch all properties
             log.info("Properties found with findAll():");
