@@ -2,24 +2,108 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example </title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+        body > .grid {
+            height: 100%;
+        }
+        .image {
+            margin-top: -100px;
+        }
+        .column {
+            max-width: 450px;
+        }
+    </style>
+
+    <title>Login</title>
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div align="center" th:if="${param.error}">
-        <p style="color: #FF1C19;">Username or Password invalid, please verify</p>
-    </div>
-    <div><input type="submit" value="Login"/></div>
-</form>
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h2 class="ui teal image header">
+                <img src="data:image/png;base64,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" class="image">
+                <div class="content">
+                    Log-in to your account
+                </div>
+            </h2>
+            <form class="ui large form" th:action="@{/login}" method="post">
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input type="text" name="username" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="ui fluid large teal submit button">Login</div>
+                </div>
 
-<a th:href="@{/registration}">You don't have an account ? Sign up here !</a>
+                <div class="ui error message"></div>
+
+            </form>
+
+            <div class="ui message">
+                New to us? <a th:href="@{/registration}">Sign Up</a>
+            </div>
+
+            <div th:if="${success}">
+                <p th:text="${systemMessage}" />
+            </div>
+        </div>
+    </div>
 </body>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.js" integrity="sha256-CzEhQFJGEW7ARCe2inmlvRwOP5pJMLpe05TttIDlQTs=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/transition.js" integrity="sha256-1rEMA5Fa27nnz2J3XjRvDvwfaCMPU1Rv+Fq1aAw4cQs=" crossorigin="anonymous"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $('.ui.large.form')
+                    .form({
+                        fields: {
+                            email: {
+                                identifier  : 'email',
+                                rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter your e-mail'
+                                    },
+                                    {
+                                        type   : 'email',
+                                        prompt : 'Please enter a valid e-mail'
+                                    }
+                                ]
+                            },
+                            password: {
+                                identifier  : 'password',
+                                rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Please enter your password'
+                                    },
+                                    {
+                                        type   : 'length[6]',
+                                        prompt : 'Your password must be at least 6 characters'
+                                    }
+                                ]
+                            }
+                        }
+                    })
+                ;
+            })
+        ;
+    </script>
 </html>

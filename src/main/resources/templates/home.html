@@ -1,13 +1,69 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+
+    <style type="text/css">
+        .left {
+            display: block;
+            float: left;
+            width: 50%;
+            height: 100vh;
+            background-image: url(https://www.ast-groupe.fr/files/media/ast-promotion/pages/droit-locataire-web.jpg);
+            background-position:center center;
+            background-repeat: no-repeat;
+        }
+        .right {
+            display: block;
+            float: right;
+            width: 50%;
+            height: 100vh;
+            background-image: url(https://www.ast-groupe.fr/files/media/ast-promotion/pages/droit-locataire-web.jpg);
+            background-position:center center;
+            background-repeat: no-repeat;
+        }
+        a {
+            font-size: 2vh;
+            color: red;
+        }
+
+        .filterR {
+            background-color:rgba(54,222,247,0.4);
+            width:100%;
+            height:100%;
+            text-align: center;
+            padding: 49vh 0;
+            transition: background-color .5s ease-in-out;
+        }
+
+        .filterL {
+            background-color:rgba(247,54,112,0.4);
+            width:100%;
+            height:100%;
+            text-align: center;
+            padding: 49vh 0;
+            transition: background-color .5s ease-in-out;
+        }
+
+        .filterR:hover, .filterL:hover {
+            background-color: transparent;
+        }
+    </style>
+
+    <title>Home</title>
 </head>
 <body>
-<h1>Welcome!</h1>
-
-<p>Loueur : <a th:href="@{/loueur}">Ici</a></p>
-<p>Locataire <a th:href="@{/locataire}">Ici</a></p>
-
+    <div class="left">
+        <div class="filterL">
+            <a th:href="@{/locataire}">Locataire ?</a>
+        </div>
+    </div>
+    <div class="right">
+        <div class="filterR">
+            <a th:href="@{/loueur}">Loueur ?</a>
+        </div>
+    </div>
 </body>
 </html>
