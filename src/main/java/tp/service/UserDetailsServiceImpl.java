@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import tp.model.User;
 import tp.repository.UserRepository;
 
-@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
@@ -32,11 +31,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         log.info("loadUserByUsername() : {}", username);
         return new UserDetailsImpl(user);
-    }
-
-    public void saveUser(User user) {
-        String password = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(password);
-        userRepository.save(user);
     }
 }

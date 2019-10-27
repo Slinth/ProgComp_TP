@@ -38,11 +38,11 @@ public class Application {
             service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5,2));
             service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3,2));
 
-            User user = new User("slinth", "dorian@email", bCryptPasswordEncoder.encode("orange12"), new Date(), new Authority(AuthorityType.ROLE_LOUEUR));
+            User user = new User("slinth", "dorian@email", bCryptPasswordEncoder.encode("orange12"), new Authority(AuthorityType.ROLE_LOUEUR));
             userRepository.save(user);
-            user = new User("antbns", "antoine@email", bCryptPasswordEncoder.encode("blblbl"), new Date(), new Authority(AuthorityType.ROLE_LOCATAIRE));
-            userRepository.save(user);
-            */
+            user = new User("antbns", "antoine@email", bCryptPasswordEncoder.encode("blblbl"), new Authority(AuthorityType.ROLE_LOCATAIRE));
+            userRepository.save(user);*/
+
 
             // fetch all properties
             log.info("Properties found with findAll():");
