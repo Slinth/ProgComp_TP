@@ -18,15 +18,17 @@ public class Property {
     private String address;
     private int capacity;
     private int status;// 0 : dispo - 1 : en att - 2 : occupé
+    private long userId;
 
     public Property() {}
 
-    public Property(String type, Double price, String address, int capacity, int status) {
+    public Property(String type, Double price, String address, int capacity, int status, long userId) {
         this.type = type;
         this.price = price;
         this.address = address;
         this.capacity = capacity;
         this.status = status;
+        this.userId = userId;
     }
 
     @Override
@@ -38,7 +40,16 @@ public class Property {
                 ", address='" + address + '\'' +
                 ", capacity=" + capacity +
                 ", status=" + status +
+                ", userId=" + userId +
                 '}';
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public Long getId() {
