@@ -135,4 +135,7 @@ public class PropertyService {
 
     }
 
+    public PropertiesList findPropertiesByUser(long userId) {
+        return new PropertiesList(this.propertyRepository.findByUser(userId));
+    }
 }

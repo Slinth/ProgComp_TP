@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import tp.model.PropertiesList;
 import tp.model.Property;
 import tp.service.PropertyService;
+import tp.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,9 @@ import static sun.security.krb5.internal.crypto.Nonce.value;
 public class PropertyController {
     @Autowired
     PropertyService propertyService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("/properties")
     public ModelAndView listAllProperties() {
@@ -78,6 +82,23 @@ public class PropertyController {
         modelAndView.addObject("pageTitle", "Book property");
         modelAndView.addObject("property", p);
         modelAndView.addObject("changed",changed);
+        return modelAndView;
+    }
+
+    @GetMapping("properties/book/validation")
+    public ModelAndView bookingValidation(
+            @RequestParam(value="userId",required=true)String userId
+    ){
+
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("booking-validation");
+
+//        PropertiesList propertiesList = propertyService.findPropertiesByStatus(1);
+        PropertiesList propertiesList = propertyService.findPropertiesByUser(Long.parseLong(userId));
+
+        modelAndView.addObject("pageTitle", "All properties");
+        modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
     }
 
