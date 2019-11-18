@@ -6,12 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import tp.model.PropertiesList;
-import tp.model.Property;
 import tp.model.User;
+import tp.service.ConversionAwsService;
 import tp.service.PropertyService;
 import tp.service.UserDetailsImpl;
 import tp.service.UserService;
@@ -24,6 +23,9 @@ public class PropertyController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ConversionAwsService conversionAwsService;
+
     @GetMapping("/properties")
     public ModelAndView listAllProperties() {
         ModelAndView modelAndView = new ModelAndView();
@@ -35,6 +37,7 @@ public class PropertyController {
 
         modelAndView.addObject("currentUser", user);
         modelAndView.addObject("propertiesList", propertiesList);
+        modelAndView.addObject("conversionService", conversionAwsService);
         return modelAndView;
     }
 

@@ -11,6 +11,9 @@
                 min-height: 100vh;
                 padding-top: 100px;
             }
+            .right-floated {
+                float: right;
+            }
         </style>
 
         <title>Biens</title>
@@ -51,7 +54,7 @@ Statut : disponible | attente | occupe"></i>
                 </div>
             </div>
             <div th:unless="${propertiesList.isEmpty()}">
-                <table class="ui sortable celled table">
+                <table class="ui sortable celled grey table">
                     <thead>
                         <tr>
                             <th>Type</th>
@@ -64,10 +67,13 @@ Statut : disponible | attente | occupe"></i>
                     <tbody>
                         <tr th:each="property : ${propertiesList.getPropertyList()}" th:class="${property.getStatus() == 0}?  positive: (${property.getStatus() == 1}? warning : negative)">
                             <td><span th:text="${property.getType()}"></span></td>
-                            <td><span th:text="${property.getPrice()}"></span></td>
+                            <td>
+                                <span th:text="${property.getPrice()}"></span>
+                                <span class="right-floated" th:text="' (' + ${conversionService.convert(property.getPrice())} + '$)'"></span>
+                            </td>
                             <td><span th:text="${property.getAddress()}"></span></td>
                             <td><span th:text="${property.getCapacity()}"></span></td>
-                            <td th:if="${currentUser.getType() == 'locataire'}"><a th:href="@{/properties/book(propertyId=${property.getId()})}"><button class="ui button">Réserver</button></a></td>
+                            <td class="center aligned" th:if="${currentUser.getType() == 'locataire'}"><a th:href="@{/properties/book(propertyId=${property.getId()})}"><button class="ui button">Réserver</button></a></td>
                         </tr>
                     </tbody>
                 </table>

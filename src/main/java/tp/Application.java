@@ -42,7 +42,7 @@ public class Application {
             service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6, 0, 1));
             service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2, 0, 2));
             service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5, 0, 2));
-            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3, 0, 2));*/
+            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3, 0, 2));
 
             // fetch all properties
             log.info("Properties found with findAll():");
@@ -88,6 +88,8 @@ public class Application {
             log.info("--------------------------------------------");
             service.findPropertiesByMaxPrice(700.0).getPropertyList().forEach(bauer -> log.info(bauer.toString()));
             log.info("");
+            */
+
         };
     }
 
