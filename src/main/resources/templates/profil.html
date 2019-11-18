@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+
+    <style>
+        .main.container{
+            min-height: 100vh;
+            margin-bottom: 5vh;
+            padding-top: 75px;
+        }
+        section {
+            margin-top: 5vh;
+        }
+    </style>
+
+    <title>Profil utilisateur</title>
+</head>
+<body>
+    <header th:insert="/fragments/header.html"></header>
+
+    <div class="ui main container">
+        <section>
+            <h3 class="ui top attached header">
+                <i class="settings icon"></i>
+                <div class="content">
+                    Paramètres de compte
+                    <div class="sub header">Modifier vos informations personnelles</div>
+                </div>
+            </h3>
+            <div class="ui attached segment">
+                <div class="ui middle aligned divided list">
+                    <div class="item">
+                        <div class="right floated content">
+                            <div class="ui button">Modifier</div>
+                        </div>
+                        <i class="large user middle aligned icon"></i>
+                        <div class="content">
+                            <div class="header">Username</div>
+                            <span th:text="${currentUser.username}"></span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="right floated content">
+                            <div class="ui button">Modifier</div>
+                        </div>
+                        <i class="large at middle aligned icon"></i>
+                        <div class="content">
+                            <div class="header">Email</div>
+                            <span th:text="${currentUser.email}"></span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="right floated content">
+                            <div class="ui button">Modifier</div>
+                        </div>
+                        <i class="large key middle aligned icon"></i>
+                        <div class="content">
+                            <div class="header">Mot de passe</div>
+                            <span>************</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="right floated content">
+                            <div class="ui button">Modifier</div>
+                        </div>
+                        <i class="large address book middle aligned icon"></i>
+                        <div class="content">
+                            <div class="header">Type d'utilisateur</div>
+                            <span th:text="${currentUser.type}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section th:if="${currentUser.getType() == 'loueur'}">
+            <h3 class="ui top attached header">
+                <i class="warehouse icon"></i>
+                <div class="content">
+                    Propriétés
+                    <div class="sub header">Gérer vos propriétés</div>
+                </div>
+            </h3>
+            <div class="ui attached segment">
+                <table class="ui celled table">
+                    <thead>
+                    <tr>
+                        <th>Adresse</th>
+                        <th>Type</th>
+                        <th>Capacité</th>
+                        <th>Prix</th>
+                        <th>Disponible</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="property : ${properties}" th:class="${property.getStatus() == 0}?  positive: (${property.getStatus() == 1}? warning : negative)">
+                            <td><span th:text="${property.getAddress()}"></span></td>
+                            <td><span th:text="${property.getType()}"></span></td>
+                            <td><span th:text="${property.getCapacity()}"></span></td>
+                            <td><span th:text="${property.getPrice()}"></span></td>
+                            <td>
+                                <i class="icon" th:classappend="${property.getStatus() == 0}? checkmark : (${property.getStatus() == 1}? attention : close)"></i>
+                                <span th:text="${property.getStatus() == 0}? 'Oui' : (${property.getStatus() == 1}? 'En attente' : 'Non')"></span>
+                                <div th:if="${property.getStatus() == 1}">
+                                    <a th:href="@{/validateRenting(propertyId=${property.getId()})}">
+                                        <button class="ui button">Valider</button>
+                                    </a>
+                                    <a th:href="@{/invalidateRenting(propertyId=${property.getId()})}">
+                                        <button class="ui button">Refuser</button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section th:unless="${currentUser.getType() == 'loueur'}">
+            <h3 class="ui top attached header">
+                <i class="warehouse icon"></i>
+                <div class="content">
+                    Locations
+                    <div class="sub header">Gérer vos locations</div>
+                </div>
+            </h3>
+            <div class="ui attached segment">
+                <table class="ui celled table">
+                    <thead>
+                    <tr>
+                        <th>Adresse</th>
+                        <th>Type</th>
+                        <th>Capacité</th>
+                        <th>Prix</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="rental : ${rentals}" th:class="${rental.getStatus() == 0}?  positive: (${rental.getStatus() == 1}? warning : negative)">
+                            <td><span th:text="${rental.getAddress()}"></span></td>
+                            <td><span th:text="${rental.getType()}"></span></td>
+                            <td><span th:text="${rental.getCapacity()}"></span></td>
+                            <td>
+                                <span th:text="${rental.getPrice()}"></span>
+                                <a th:href="@{/cancelRenting(propertyId=${rental.getId()})}">
+                                    <button class="ui button">Refuser</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <footer th:insert="/fragments/footer.html"></footer>
+</body>
+</html>

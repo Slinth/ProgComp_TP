@@ -9,18 +9,15 @@
         <style>
             .main.container{
                 min-height: 100vh;
-                padding-top: 50px;
-            }
-            .dataTables_filter,.dataTables_length{
-                display:none;
+                padding-top: 100px;
             }
         </style>
 
-        <title>Properties</title>
+        <title>Biens</title>
     </head>
     <body>
         <header th:insert="/fragments/header.html"></header>
-        <div class="ui main text container">
+        <div class="ui main container">
             <table>
                 <form th:action="@{/properties/filter}" method="get" class="ui form">
                     <h1 class="ui dividing header">Filtres</h1>
@@ -52,25 +49,20 @@ Statut : disponible | attente | occupe"></i>
                 <div class="header">
                     Erreur : la liste est vide
                 </div>
-                QUEL PLAISIR ! Encore une erreur, c'est sans doute parce que vous êtes diminués intellectuellement.
-                <marquee>CHEH !</marquee>
             </div>
             <div th:unless="${propertiesList.isEmpty()}">
-                <table id="propertiesTable" class="display">
+                <table class="ui sortable celled table">
                     <thead>
                         <tr>
-                            <th>Etat</th>
                             <th>Type</th>
                             <th>Prix</th>
-                            <th>Addresse</th>
+                            <th>Adresse</th>
                             <th>Capacité</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody style="text-align: center">
-                        <tr th:each="property : ${propertiesList.getPropertyList()}">
-                            <td th:if="${property.getStatus()==0}" style="width:5px;height:5px;background-color: green"></td>
-                            <td th:unless="${property.getStatus()==0}"style="width:5px;height:5px;background-color: red"></td>
+                    <tbody>
+                        <tr th:each="property : ${propertiesList.getPropertyList()}" th:class="${property.getStatus() == 0}?  positive: (${property.getStatus() == 1}? warning : negative)">
                             <td><span th:text="${property.getType()}"></span></td>
                             <td><span th:text="${property.getPrice()}"></span></td>
                             <td><span th:text="${property.getAddress()}"></span></td>
@@ -83,11 +75,14 @@ Statut : disponible | attente | occupe"></i>
             </div>
         </div>
         <footer th:insert="/fragments/footer.html"></footer>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.js"
+                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                crossorigin="anonymous"></script>
+        <script src="https://semantic-ui.com/javascript/library/tablesort.js"></script>
         <script>
             $(document).ready( function () {
-                $('#propertiesTable').DataTable();
+                $('table').tablesort();
             } );
         </script>
     </body>

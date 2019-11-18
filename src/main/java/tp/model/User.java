@@ -74,4 +74,14 @@ public class User implements Serializable {
     public void addAuthority(Authority authority) {
         this.authorities.add(authority);
     }
+
+    public String getType() {
+        String res = "";
+        if (this.authorities.iterator().next().getName().equals(AuthorityType.ROLE_LOCATAIRE)) {
+            res = "locataire";
+        } else if (this.authorities.iterator().next().getName().equals(AuthorityType.ROLE_LOUEUR)){
+            res = "loueur";
+        }
+        return res;
+    }
 }

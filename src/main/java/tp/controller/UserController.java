@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import tp.model.Authority;
-import tp.model.AuthorityType;
-import tp.model.User;
-import tp.model.UserDto;
+import tp.model.*;
+import tp.service.PropertyService;
+import tp.service.UserDetailsImpl;
 import tp.service.UserService;
 
 import javax.validation.Valid;
@@ -30,36 +29,34 @@ public class UserController {
     @Autowired
     UserDetailsService userDetailsService;
 
+    @Autowired
+    PropertyService propertyService;
+
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-
-    @RequestMapping(value={"/locataire", "/loueur"}, method = RequestMethod.GET)
-    public ModelAndView getCurrentUser() {
+    @GetMapping("/profil")
+    public ModelAndView getProfil() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("loueur");
+        modelAndView.setViewName("profil");
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = principal.toString();
-        String type = "";
+        User user = getCurrentUser();
+        PropertiesList propertiesList = propertyService.findPropertiesByUser(user.getId());
 
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-            type = this.getType((UserDetails) principal);
-        }
-
-        modelAndView.addObject("pageTitle", "Profil " + type);
-        modelAndView.addObject("username", username);
+        modelAndView.addObject("currentUser", user);
+        modelAndView.addObject("pageTitle", "Profil " + user.getType());
+        modelAndView.addObject("properties", propertiesList.getPropertyList());
         return modelAndView;
     }
 
-    private String getType(UserDetails user) {
-        String type = "";
-        if(user.getAuthorities().iterator().next().getAuthority().equals("ROLE_LOCATAIRE")) {
-            type = "locataire";
-        } else if(user.getAuthorities().iterator().next().getAuthority().equals("ROLE_LOUEUR")) {
-            type = "loueur";
+    public User getCurrentUser() {
+        User currentUser = new User();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            currentUser = ((UserDetailsImpl) principal).getUserDetails();
         }
-        return type;
+
+        return currentUser;
     }
 
     @RequestMapping(value="/registration", method = RequestMethod.GET)
@@ -102,42 +99,4 @@ public class UserController {
         model.addAttribute("success", successAttribute);
         return new ModelAndView("login", model);
     }
-
-
-    /*
-    @RequestMapping(value = "/enreg", method = RequestMethod.POST)
-    public String doRegistration(
-            @RequestParam String username,
-            @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam String type,
-            Model model) {
-
-        log.info(username);
-        log.info(email);
-        log.info(password);
-        log.info(type);
-
-        //UserDetails userExists = (UserDetails) userDetailsService.loadUserByUsername(username);
-        //log.info("[*] User loaded : " + userExists.toString());
-
-        User userToCreate = new User();
-
-        if (type.equals("locataire")) {
-            userToCreate.addAuthority(new Authority(AuthorityType.ROLE_LOCATAIRE));
-        } else if (type.equals("loueur")) {
-            userToCreate.addAuthority(new Authority(AuthorityType.ROLE_LOUEUR));
-        }
-        userToCreate.setUsername(username);
-        userToCreate.setPassword(password);
-        userToCreate.setEmail(email);
-
-        userService.saveNewUser(userToCreate);
-
-        model.addAttribute("message", "créé");
-        model.addAttribute("test", "youpi");
-
-        return "registration";
-    }
-     */
 }

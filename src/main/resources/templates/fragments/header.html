@@ -1,3 +1,10 @@
 <div class="ui inverted fixed menu">
-    <div class="header item" th:text="${pageTitle}"></div>
+    <div class="ui container">
+        <a class="header item" th:href="@{/home}">
+            <img class="logo" src="https://yoplanning.com/wp-content/uploads/2019/08/airbnb-vector-png-airbnb-logo-airbnb-logo-877.png" alt="Logo">
+            Pas AirBnB
+        </a>
+        <a class="item" th:href="@{/properties}">Tous les biens</a>
+        <a class="item" th:href="@{/profil}">Profil</a>
+    </div>
 </div>

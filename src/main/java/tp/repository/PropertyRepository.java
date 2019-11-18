@@ -28,4 +28,7 @@ public interface PropertyRepository extends CrudRepository<Property, Long> {
 
     @Query("SELECT p FROM Property p WHERE p.userId = ?1")
     List<Property> findByUser(long userId);
+
+    @Query("SELECT p FROM Property p WHERE p.status = 0")
+    List<Property> findAllAvailable();
 }

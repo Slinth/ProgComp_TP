@@ -8,17 +8,20 @@
         .main.container{
             min-height: 100vh;
             padding-top: 50px;
+            margin-bottom: 5vh;
         }
     </style>
 
-    <title>Profil locataire</title>
+    <title>Profil utilisateur</title>
 </head>
 <body>
 <header th:insert="/fragments/header.html"></header>
 
-<div class="ui main text container">
-    <h3 th:text="${username}"></h3>
+<div class="ui main container">
+    <p th:text="${validationMessage}"></p>
+    <span th:text="${property}"></span>
 </div>
+
 <footer th:insert="/fragments/footer.html"></footer>
 </body>
 </html>

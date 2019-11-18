@@ -119,23 +119,31 @@ public class PropertyService {
     }
 
     /***
-     * Modifie le status du bien
+     * Modifie le statut du bien
      * @param propertyId Id du bien a modifier
      * @param status Nouveau statut
      */
-    public boolean updatePropertyStatus(long propertyId,int status){
+    public boolean updatePropertyStatus(long propertyId, int status){
         Property prop = this.propertyRepository.findById(propertyId);
-        if(prop.getStatus()==0) {
-            prop.setStatus(status);
-            this.propertyRepository.save(prop);
-            return true;
-        }else{
-            return false;
-        }
-
+        prop.setStatus(status);
+        this.propertyRepository.save(prop);
+        return true;
     }
 
+    /**
+     * Récupère la liste des biens qui ont comme propriétaire l'utilisateur avec l'ID correspondant
+     * @param userId identifiant du propriétaire du bien
+     * @return liste des biens de l'utilisateur
+     */
     public PropertiesList findPropertiesByUser(long userId) {
         return new PropertiesList(this.propertyRepository.findByUser(userId));
+    }
+
+    /**
+     * Récupère la liste des tous les biens disponibles à la location
+     * @return liste des biens disponibles
+     */
+    public PropertiesList findAllAvailableProperties() {
+        return new PropertiesList(this.propertyRepository.findAllAvailable());
     }
 }

@@ -2,18 +2,15 @@ package tp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import tp.model.PropertiesList;
 import tp.model.Property;
 import tp.service.PropertyService;
 import tp.service.UserService;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static sun.security.krb5.internal.crypto.Nonce.value;
 
 @Controller
 public class PropertyController {
@@ -28,9 +25,9 @@ public class PropertyController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("properties");
 
-        PropertiesList propertiesList = propertyService.findAllProperties();
+        PropertiesList propertiesList = propertyService.findAllAvailableProperties();
 
-        modelAndView.addObject("pageTitle", "All properties");
+        modelAndView.addObject("pageTitle", "Tous les biens");
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
     }
@@ -100,6 +97,28 @@ public class PropertyController {
         modelAndView.addObject("pageTitle", "All properties");
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
+    }
+
+    @GetMapping("/validateRenting")
+    public String validateRenting(@RequestParam(value = "propertyId", required = true) String propertyId, Model model) {
+        propertyService.updatePropertyStatus(Long.parseLong(propertyId), 2);
+        model.addAttribute("validationMessage", "La location a correctement été validée !");
+        model.addAttribute("property", propertyService.findPropertyById(Long.parseLong(propertyId)));
+        return "validation-view";
+    }
+
+    @GetMapping("/invalidateRenting")
+    public String invalidateRenting(@RequestParam(value = "propertyId", required = true) String propertyId, Model model) {
+        propertyService.updatePropertyStatus(Long.parseLong(propertyId), 0);
+        model.addAttribute("validationMessage", "La location a correctement été refusée !");
+        return "validation-view";
+    }
+
+    @GetMapping("/cancelRenting")
+    public String cancelRenting(@RequestParam(value = "propertyId", required = true) String propertyId, Model model) {
+        propertyService.updatePropertyStatus(Long.parseLong(propertyId), 0);
+        model.addAttribute("validationMessage", "La location a correctement été annulée !");
+        return "validation-view";
     }
 
 }

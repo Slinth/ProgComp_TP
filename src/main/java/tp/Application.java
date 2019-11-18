@@ -30,19 +30,19 @@ public class Application {
     @Bean
     public CommandLineRunner demo(PropertyService service, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         return (args) -> {
-            //save a few properties
-            /*service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4,0));
-            service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2,2));
-            service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6,0));
-            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2,0));
-            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5,2));
-            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3,2));
-
-            User user = new User("slinth", "dorian@email", bCryptPasswordEncoder.encode("orange12"), new Authority(AuthorityType.ROLE_LOUEUR));
+            //save some users
+            /*User user = new User("slinth", "dorian@email", bCryptPasswordEncoder.encode("orange12"), new Authority(AuthorityType.ROLE_LOUEUR));
             userRepository.save(user);
             user = new User("antbns", "antoine@email", bCryptPasswordEncoder.encode("blblbl"), new Authority(AuthorityType.ROLE_LOCATAIRE));
-            userRepository.save(user);*/
+            userRepository.save(user);
 
+            //save a few properties
+            service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4, 0, 1));
+            service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2, 2, 1));
+            service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6, 1, 1));
+            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2, 0, 2));
+            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5, 1, 2));
+            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3, 2, 2));*/
 
             // fetch all properties
             log.info("Properties found with findAll():");
