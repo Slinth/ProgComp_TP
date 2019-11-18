@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .hasAuthority("ROLE_LOCATAIRE")
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/", "/home", "/registration", "/register").permitAll()
+                    .antMatchers("/", "/home", "/registration", "/register", "/home2").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .exceptionHandling()

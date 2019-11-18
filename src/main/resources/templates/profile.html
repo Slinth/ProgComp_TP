@@ -40,7 +40,7 @@
                     <div class="item">
                         <div class="right floated content">
                             <div class="ui button" onclick="displayForm('formUsername')">Modifier</div>
-                            <form class="inline hidden" id="formUsername" th:action="@{/profil/update}" method="post">
+                            <form class="inline hidden" id="formUsername" th:action="@{/profile/update}" method="post">
                                 <div class="ui action input">
                                     <input name="field" value="username" hidden>
                                     <input type="text" placeholder="username" name="value">
@@ -57,7 +57,7 @@
                     <div class="item">
                         <div class="right floated content">
                             <div class="ui button" onclick="displayForm('formEmail')">Modifier</div>
-                            <form class="inline hidden" id="formEmail" th:action="@{/profil/update}" method="post">
+                            <form class="inline hidden" id="formEmail" th:action="@{/profile/update}" method="post">
                                 <div class="ui action input">
                                     <input name="field" value="email" hidden>
                                     <input type="text" placeholder="email" name="value">
@@ -74,7 +74,7 @@
                     <div class="item">
                         <div class="right floated content">
                             <div class="ui button" onclick="displayForm('formPassword')">Modifier</div>
-                            <form class="inline hidden" id="formPassword" th:action="@{/profil/update}" method="post">
+                            <form class="inline hidden" id="formPassword" th:action="@{/profile/update}" method="post">
                                 <div class="ui action input">
                                     <input name="field" value="password" hidden>
                                     <input type="password" placeholder="password" name="value" minlength="6">

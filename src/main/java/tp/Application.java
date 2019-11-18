@@ -27,23 +27,26 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    /*
+
     @Bean
     public CommandLineRunner demo(PropertyService service, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         return (args) -> {
+            /*
             //save some users
             User user = new User("slinth", "dorian@email", bCryptPasswordEncoder.encode("orange12"), new Authority(AuthorityType.ROLE_LOUEUR));
             userRepository.save(user);
             user = new User("antbns", "antoine@email", bCryptPasswordEncoder.encode("blblbl"), new Authority(AuthorityType.ROLE_LOCATAIRE));
+            userRepository.save(user);
+            user = new User("test", "test@email", bCryptPasswordEncoder.encode("test00"), new Authority(AuthorityType.ROLE_LOUEUR));
             userRepository.save(user);
 
             //save a few properties
             service.saveProperty(new Property("maison", 650.50, "15 rue Louis Pasteur", 4, 0, 1));
             service.saveProperty(new Property("appartement", 320.0, "fdk,fdkg,nfdkng", 2, 0, 1));
             service.saveProperty(new Property("maison", 1040.66, "blblblblblblbl", 6, 0, 1));
-            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2, 0, 2));
-            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5, 0, 2));
-            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3, 0, 2));
+            service.saveProperty(new Property("appartement", 300.7, "skurtskurtskurt", 2, 0, 3));
+            service.saveProperty(new Property("maison", 860.20, "djfhjfhjdf", 5, 0, 3));
+            service.saveProperty(new Property("appartement", 430.5, "djfhjfhjdf", 3, 0, 3));
 
             // fetch all properties
             log.info("Properties found with findAll():");
@@ -89,8 +92,7 @@ public class Application {
             log.info("--------------------------------------------");
             service.findPropertiesByMaxPrice(700.0).getPropertyList().forEach(bauer -> log.info(bauer.toString()));
             log.info("");
+            */
         };
     }
-     */
-
 }

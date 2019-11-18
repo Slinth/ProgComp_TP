@@ -33,10 +33,10 @@ public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
-    @GetMapping("/profil")
-    public ModelAndView getProfil() {
+    @GetMapping("/profile")
+    public ModelAndView getProfile() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("profil");
+        modelAndView.setViewName("profile");
 
         PropertiesList propertiesList = new PropertiesList();
 
@@ -53,8 +53,8 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping("/profil/update")
-    public String updateProfil(
+    @PostMapping("/profile/update")
+    public String updateProfile(
             @RequestParam(value="field") String field,
             @RequestParam(value="value") String value,
             Model model
