@@ -13,6 +13,12 @@
         section {
             margin-top: 5vh;
         }
+        .hidden {
+            display: none !important;
+        }
+        .inline {
+            display: inline-flex;
+        }
     </style>
 
     <title>Profil utilisateur</title>
@@ -33,7 +39,14 @@
                 <div class="ui middle aligned divided list">
                     <div class="item">
                         <div class="right floated content">
-                            <div class="ui button">Modifier</div>
+                            <div class="ui button" onclick="displayForm('formUsername')">Modifier</div>
+                            <form class="inline hidden" id="formUsername" th:action="@{/profil/update}" method="post">
+                                <div class="ui action input">
+                                    <input name="field" value="username" hidden>
+                                    <input type="text" placeholder="username" name="value">
+                                    <button class="ui button" type="submit">Valider</button>
+                                </div>
+                            </form>
                         </div>
                         <i class="large user middle aligned icon"></i>
                         <div class="content">
@@ -43,7 +56,14 @@
                     </div>
                     <div class="item">
                         <div class="right floated content">
-                            <div class="ui button">Modifier</div>
+                            <div class="ui button" onclick="displayForm('formEmail')">Modifier</div>
+                            <form class="inline hidden" id="formEmail" th:action="@{/profil/update}" method="post">
+                                <div class="ui action input">
+                                    <input name="field" value="email" hidden>
+                                    <input type="text" placeholder="email" name="value">
+                                    <button class="ui button" type="submit">Valider</button>
+                                </div>
+                            </form>
                         </div>
                         <i class="large at middle aligned icon"></i>
                         <div class="content">
@@ -53,7 +73,14 @@
                     </div>
                     <div class="item">
                         <div class="right floated content">
-                            <div class="ui button">Modifier</div>
+                            <div class="ui button" onclick="displayForm('formPassword')">Modifier</div>
+                            <form class="inline hidden" id="formPassword" th:action="@{/profil/update}" method="post">
+                                <div class="ui action input">
+                                    <input name="field" value="password" hidden>
+                                    <input type="password" placeholder="password" name="value" minlength="6">
+                                    <button class="ui button" type="submit">Valider</button>
+                                </div>
+                            </form>
                         </div>
                         <i class="large key middle aligned icon"></i>
                         <div class="content">
@@ -156,5 +183,12 @@
     </div>
 
     <footer th:insert="/fragments/footer.html"></footer>
+
+    <script>
+        function displayForm(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+    </script>
 </body>
 </html>

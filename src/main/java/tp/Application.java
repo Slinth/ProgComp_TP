@@ -27,10 +27,11 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    /*
     @Bean
     public CommandLineRunner demo(PropertyService service, UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         return (args) -> {
-            /*//save some users
+            //save some users
             User user = new User("slinth", "dorian@email", bCryptPasswordEncoder.encode("orange12"), new Authority(AuthorityType.ROLE_LOUEUR));
             userRepository.save(user);
             user = new User("antbns", "antoine@email", bCryptPasswordEncoder.encode("blblbl"), new Authority(AuthorityType.ROLE_LOCATAIRE));
@@ -88,9 +89,8 @@ public class Application {
             log.info("--------------------------------------------");
             service.findPropertiesByMaxPrice(700.0).getPropertyList().forEach(bauer -> log.info(bauer.toString()));
             log.info("");
-            */
-
         };
     }
+     */
 
 }

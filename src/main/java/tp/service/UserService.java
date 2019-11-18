@@ -20,9 +20,27 @@ public class UserService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void saveNewUser(User user) {
-        String password = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(password);
+        user.setPassword(encodePassword(user));
         userRepository.save(user);
         log.info("saveNewUser() : {}", user.toString());
+    }
+
+    public String encodePassword(User user) {
+        return bCryptPasswordEncoder.encode(user.getPassword());
+    }
+
+    public boolean updateUsername(User user) {
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        if (existingUser != null) {
+            return false;
+        } else {
+            updateUser(user);
+            return true;
+        }
+    }
+
+    public void updateUser(User user) {
+        user.setPassword(encodePassword(user));
+        userRepository.save(user);
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -45,7 +44,6 @@ public class UserController {
         if (user.getType().equals("loueur")) {
             propertiesList = propertyService.findPropertiesByUser(user.getId());
         } else if (user.getType().equals("locataire")) {
-            log.info("DANS LE IF " + user.getType() + user.getId());
             propertiesList = propertyService.findPropertiesByTenant(user.getId());
         }
 
@@ -53,6 +51,43 @@ public class UserController {
         modelAndView.addObject("pageTitle", "Profil " + user.getType());
         modelAndView.addObject("properties", propertiesList.getPropertyList());
         return modelAndView;
+    }
+
+    @PostMapping("/profil/update")
+    public String updateProfil(
+            @RequestParam(value="field") String field,
+            @RequestParam(value="value") String value,
+            Model model
+            ) {
+        User currentUser = getCurrentUser();
+        switch (field) {
+            case "username" :
+                log.info("[*] CHANGEMENT DE L'USERNAME DANS LA BD : " + value);
+                currentUser.setUsername(value);
+                if (userService.updateUsername(currentUser)) {
+                    model.addAttribute("validationMessage", "Nom d'utilisateur correctement modifié !");
+                } else {
+                    model.addAttribute("validationMessage", "Modification impossible, le nom d'utilisateur est déjà utilisé.");
+                }
+                break;
+            case "email" :
+                log.info("[*] CHANGEMENT DE L'EMAIL DANS LA BD : " + value);
+                currentUser.setEmail(value);
+                userService.updateUser(currentUser);
+                model.addAttribute("validationMessage", "Adresse email correctement modifié !");
+                break;
+            case "password" :
+                log.info("[*] CHANGEMENT DU PASSWORD DANS LA BD : " + value);
+                currentUser.setPassword(value);
+                userService.updateUser(currentUser);
+                model.addAttribute("validationMessage", "Mot de passe correctement modifié !");
+                break;
+            default:
+                log.info("[*] DEFAULT");
+                break;
+        }
+
+        return "validation-view";
     }
 
     public User getCurrentUser() {
