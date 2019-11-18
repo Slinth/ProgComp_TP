@@ -123,11 +123,10 @@ public class PropertyService {
      * @param propertyId Id du bien a modifier
      * @param status Nouveau statut
      */
-    public boolean updatePropertyStatus(long propertyId, int status){
+    public void updatePropertyStatus(long propertyId, int status){
         Property prop = this.propertyRepository.findById(propertyId);
         prop.setStatus(status);
         this.propertyRepository.save(prop);
-        return true;
     }
 
     /**
@@ -140,10 +139,33 @@ public class PropertyService {
     }
 
     /**
-     * Récupère la liste des tous les biens disponibles à la location
+     * Récupère la liste des tous les biens disponibles à la location sauf ceux possédés par l'utilisateur courant
      * @return liste des biens disponibles
      */
-    public PropertiesList findAllAvailableProperties() {
-        return new PropertiesList(this.propertyRepository.findAllAvailable());
+    public PropertiesList findAllAvailableProperties(long currentUserId) {
+        return new PropertiesList(this.propertyRepository.findAllAvailable(currentUserId));
+    }
+
+    public PropertiesList findPropertiesByTenant(long tenantId) {
+        return new PropertiesList(this.propertyRepository.findByTenant(tenantId));
+    }
+
+    public boolean rentProperty(long propertyId, long userId) {
+        Property prop = this.propertyRepository.findById(propertyId);
+        if (prop.getStatus() == 1 || prop.getStatus() == 2) {
+            return false;
+        } else {
+            prop.setStatus(1);
+            prop.setTenantId(userId);
+            this.propertyRepository.save(prop);
+            return true;
+        }
+    }
+
+    public void cancelRenting(long propertyId) {
+        Property prop = this.propertyRepository.findById(propertyId);
+        prop.setStatus(0);
+        prop.setTenantId(-1);
+        this.propertyRepository.save(prop);
     }
 }

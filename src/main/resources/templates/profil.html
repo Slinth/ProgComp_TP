@@ -138,14 +138,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="rental : ${rentals}" th:class="${rental.getStatus() == 0}?  positive: (${rental.getStatus() == 1}? warning : negative)">
+                        <tr th:each="rental : ${properties}" th:class="${rental.getStatus() == 0}?  positive: (${rental.getStatus() == 1}? warning : negative)">
                             <td><span th:text="${rental.getAddress()}"></span></td>
                             <td><span th:text="${rental.getType()}"></span></td>
                             <td><span th:text="${rental.getCapacity()}"></span></td>
                             <td>
                                 <span th:text="${rental.getPrice()}"></span>
                                 <a th:href="@{/cancelRenting(propertyId=${rental.getId()})}">
-                                    <button class="ui button">Refuser</button>
+                                    <button class="ui button">Annuler location</button>
                                 </a>
                             </td>
                         </tr>

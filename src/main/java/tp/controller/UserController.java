@@ -39,8 +39,15 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profil");
 
+        PropertiesList propertiesList = new PropertiesList();
+
         User user = getCurrentUser();
-        PropertiesList propertiesList = propertyService.findPropertiesByUser(user.getId());
+        if (user.getType().equals("loueur")) {
+            propertiesList = propertyService.findPropertiesByUser(user.getId());
+        } else if (user.getType().equals("locataire")) {
+            log.info("DANS LE IF " + user.getType() + user.getId());
+            propertiesList = propertyService.findPropertiesByTenant(user.getId());
+        }
 
         modelAndView.addObject("currentUser", user);
         modelAndView.addObject("pageTitle", "Profil " + user.getType());

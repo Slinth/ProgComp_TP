@@ -16,6 +16,7 @@ public class Property {
     private int capacity;
     private int status;// 0 : dispo - 1 : en att - 2 : occupé
     private long userId;
+    private long tenantId;
 
     public Property() {}
 
@@ -95,5 +96,13 @@ public class Property {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(long tenantId) {
+        this.tenantId = tenantId;
     }
 }

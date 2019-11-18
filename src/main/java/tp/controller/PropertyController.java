@@ -1,6 +1,8 @@
 package tp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import tp.model.PropertiesList;
 import tp.model.Property;
+import tp.model.User;
 import tp.service.PropertyService;
+import tp.service.UserDetailsImpl;
 import tp.service.UserService;
 
 @Controller
@@ -25,9 +29,11 @@ public class PropertyController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("properties");
 
-        PropertiesList propertiesList = propertyService.findAllAvailableProperties();
+        User user = getCurrentUser();
 
-        modelAndView.addObject("pageTitle", "Tous les biens");
+        PropertiesList propertiesList = propertyService.findAllAvailableProperties(user.getId());
+
+        modelAndView.addObject("currentUser", user);
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
     }
@@ -61,8 +67,7 @@ public class PropertyController {
                 break;
         }
 
-
-        modelAndView.addObject("pageTitle", "Filtred properties");
+        modelAndView.addObject("currentUser", getCurrentUser());
         modelAndView.addObject("propertiesList", propertiesList);
         return modelAndView;
     }
@@ -74,28 +79,12 @@ public class PropertyController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("booking");
 
-        boolean changed = propertyService.updatePropertyStatus(Long.parseLong(propertyId),1);
-        Property p = propertyService.findPropertyById(Long.parseLong(propertyId));
-        modelAndView.addObject("pageTitle", "Book property");
-        modelAndView.addObject("property", p);
-        modelAndView.addObject("changed",changed);
-        return modelAndView;
-    }
+        User user = getCurrentUser();
 
-    @GetMapping("properties/book/validation")
-    public ModelAndView bookingValidation(
-            @RequestParam(value="userId",required=true)String userId
-    ){
+        boolean changed = propertyService.rentProperty(Long.parseLong(propertyId), user.getId());
 
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("booking-validation");
-
-//        PropertiesList propertiesList = propertyService.findPropertiesByStatus(1);
-        PropertiesList propertiesList = propertyService.findPropertiesByUser(Long.parseLong(userId));
-
-        modelAndView.addObject("pageTitle", "All properties");
-        modelAndView.addObject("propertiesList", propertiesList);
+        modelAndView.addObject("property", propertyService.findPropertyById(Long.parseLong(propertyId)));
+        modelAndView.addObject("validated", changed);
         return modelAndView;
     }
 
@@ -116,9 +105,20 @@ public class PropertyController {
 
     @GetMapping("/cancelRenting")
     public String cancelRenting(@RequestParam(value = "propertyId", required = true) String propertyId, Model model) {
-        propertyService.updatePropertyStatus(Long.parseLong(propertyId), 0);
+        propertyService.cancelRenting(Long.parseLong(propertyId));
         model.addAttribute("validationMessage", "La location a correctement été annulée !");
         return "validation-view";
+    }
+
+    public User getCurrentUser() {
+        User currentUser = new User();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            currentUser = ((UserDetailsImpl) principal).getUserDetails();
+        }
+
+        return currentUser;
     }
 
 }

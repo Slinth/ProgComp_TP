@@ -17,7 +17,7 @@
 </head>
 <body>
 <header th:insert="/fragments/header.html"></header>
-<div th:if="${changed}" class="ui main text container">
+<div th:if="${validated}" class="ui main text container">
     <h1>Réception de votre réservation</h1>
     <p>Elle sera traité par nos services d'ici quelques jours.</p>
     <h2>Détail :</h2>
@@ -41,7 +41,7 @@
     </table>
     <a th:href="@{/properties/}"><button class="ui button">Retour</button></a>
 </div>
-<div th:unless="${changed}" class="ui main text container">
+<div th:unless="${validated}" class="ui main text container">
     <h1>Erreur lors de la réservation</h1>
     <p>Le bien n'est peut être plus disponible</p>
     <a th:href="@{/properties/}"><button class="ui button">Retour</button></a>
