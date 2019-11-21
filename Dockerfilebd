@@ -1,0 +1,6 @@
+FROM java:8-jdk-alpine
+COPY hsqldb/ /usr/app/hsqldb
+COPY startBd.sh /usr/app
+
+WORKDIR /usr/app
+ENTRYPOINT ["sh","startBd.sh"]
