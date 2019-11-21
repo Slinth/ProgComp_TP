@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+
+    <style>
+        .main.container{
+            min-height: 100vh;
+            padding-top: 75px;
+            margin-bottom: 5vh;
+        }
+    </style>
+
+    <title>Kafka Queue</title>
+</head>
+<body>
+    <header th:insert="/fragments/header.html"></header>
+
+    <div class="ui main container">
+        <table class="ui celled grey table">
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pair : ${dataPairs}">
+                    <td><span th:text="${pair.getFirst()}"></span></td>
+                    <td><span th:text="${pair.getSecond()}"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer th:insert="/fragments/footer.html"></footer>
+</body>
+</html>

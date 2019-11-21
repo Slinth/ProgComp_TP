@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import tp.model.PropertiesList;
+import tp.model.Property;
 import tp.model.User;
-import tp.service.ConversionAwsService;
-import tp.service.PropertyService;
-import tp.service.UserDetailsImpl;
-import tp.service.UserService;
+import tp.service.*;
 
 @Controller
 public class PropertyController {
@@ -26,6 +24,9 @@ public class PropertyController {
     @Autowired
     ConversionAwsService conversionAwsService;
 
+    @Autowired
+    KafkaQueueService kafkaQueueService;
+
     @GetMapping("/properties")
     public ModelAndView listAllProperties() {
         ModelAndView modelAndView = new ModelAndView();
@@ -37,7 +38,6 @@ public class PropertyController {
 
         modelAndView.addObject("currentUser", user);
         modelAndView.addObject("propertiesList", propertiesList);
-        modelAndView.addObject("conversionService", conversionAwsService);
         return modelAndView;
     }
 
@@ -86,7 +86,10 @@ public class PropertyController {
 
         boolean changed = propertyService.rentProperty(Long.parseLong(propertyId), user.getId());
 
-        modelAndView.addObject("property", propertyService.findPropertyById(Long.parseLong(propertyId)));
+        Property property = propertyService.findPropertyById(Long.parseLong(propertyId));
+        kafkaQueueService.addToQueue(property.getPrice().toString());
+
+        modelAndView.addObject("property", property);
         modelAndView.addObject("validated", changed);
         return modelAndView;
     }
@@ -111,6 +114,30 @@ public class PropertyController {
         propertyService.cancelRenting(Long.parseLong(propertyId));
         model.addAttribute("validationMessage", "La location a correctement été annulée !");
         return "validation-view";
+    }
+
+    @GetMapping("/kafka")
+    public ModelAndView displayKafkaQueue() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("kafka-view");
+
+        modelAndView.addObject("dataPairs", KafkaQueueService.getRetrievedDatas());
+        return modelAndView;
+    }
+
+    @GetMapping("/awsLambda")
+    public ModelAndView displayPropertiesWithConvertedPrices() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("awsLambda-view");
+
+        User user = getCurrentUser();
+
+        PropertiesList propertiesList = propertyService.findAllAvailableProperties(user.getId());
+
+        modelAndView.addObject("currentUser", user);
+        modelAndView.addObject("propertiesList", propertiesList);
+        modelAndView.addObject("conversionService", conversionAwsService);
+        return modelAndView;
     }
 
     public User getCurrentUser() {

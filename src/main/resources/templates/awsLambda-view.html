@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+
+        <style>
+            .main.container{
+                min-height: 100vh;
+                padding-top: 100px;
+            }
+        </style>
+
+        <title>Aws Lambda</title>
+    </head>
+    <body>
+        <header th:insert="/fragments/header.html"></header>
+
+        <div class="ui main container">
+            <div class="ui warning message" th:if="${propertiesList.isEmpty()}" >
+                <div class="header">
+                    Erreur : la liste est vide
+                </div>
+            </div>
+            <div th:unless="${propertiesList.isEmpty()}">
+                <table class="ui sortable celled grey table">
+                    <thead>
+                        <tr>
+                            <th>Prix (EUR)</th>
+                            <th>Prix (USD)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="property : ${propertiesList.getPropertyList()}">
+                            <td><span th:text="${property.getPrice()}"></span></td>
+                            <td><span th:text="${conversionService.convert(property.getPrice())}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer th:insert="/fragments/footer.html"></footer>
+
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.js"
+                integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+                crossorigin="anonymous"></script>
+        <script src="https://semantic-ui.com/javascript/library/tablesort.js"></script>
+        <script>
+            $(document).ready( function () {
+                $('table').tablesort();
+            } );
+        </script>
+    </body>
+</html>

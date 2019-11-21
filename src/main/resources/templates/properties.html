@@ -3,16 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-
 
         <style>
             .main.container{
                 min-height: 100vh;
                 padding-top: 100px;
-            }
-            .right-floated {
-                float: right;
             }
         </style>
 
@@ -67,10 +62,7 @@ Statut : disponible | attente | occupe"></i>
                     <tbody>
                         <tr th:each="property : ${propertiesList.getPropertyList()}" th:class="${property.getStatus() == 0}?  positive: (${property.getStatus() == 1}? warning : negative)">
                             <td><span th:text="${property.getType()}"></span></td>
-                            <td>
-                                <span th:text="${property.getPrice()}"></span>
-                                <span class="right-floated" th:text="' (' + ${conversionService.convert(property.getPrice())} + '$)'"></span>
-                            </td>
+                            <td><span th:text="${property.getPrice()}"></span></td>
                             <td><span th:text="${property.getAddress()}"></span></td>
                             <td><span th:text="${property.getCapacity()}"></span></td>
                             <td class="center aligned" th:if="${currentUser.getId() != property.getUserId()}"><a th:href="@{/properties/book(propertyId=${property.getId()})}"><button class="ui button">Réserver</button></a></td>
