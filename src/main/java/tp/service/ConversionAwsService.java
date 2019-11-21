@@ -36,7 +36,7 @@ public class ConversionAwsService {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } finally {
-            System.out.println("Converted price : " + ret);
+            System.out.println("[AWS Lambda] Converted price : " + ret);
         }
         return ret;
     }

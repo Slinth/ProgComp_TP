@@ -43,8 +43,8 @@ public class PropertyController {
 
     @GetMapping("/properties/filter")
     public ModelAndView listPropertiesFilter(
-            @RequestParam(value="name",required=true)String name,
-            @RequestParam(value="value",required=true)String value
+            @RequestParam(value="name")String name,
+            @RequestParam(value="value")String value
             ){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("properties");
@@ -77,7 +77,7 @@ public class PropertyController {
 
     @GetMapping("/properties/book")
     public ModelAndView bookProperty(
-            @RequestParam(value="propertyId",required=true)String propertyId
+            @RequestParam(value="propertyId")String propertyId
     ) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("booking");
@@ -130,11 +130,9 @@ public class PropertyController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("awsLambda-view");
 
-        User user = getCurrentUser();
+        // Id = -1 pour afficher tous les enregistrements
+        PropertiesList propertiesList = propertyService.findAllAvailableProperties(-1);
 
-        PropertiesList propertiesList = propertyService.findAllAvailableProperties(user.getId());
-
-        modelAndView.addObject("currentUser", user);
         modelAndView.addObject("propertiesList", propertiesList);
         modelAndView.addObject("conversionService", conversionAwsService);
         return modelAndView;
