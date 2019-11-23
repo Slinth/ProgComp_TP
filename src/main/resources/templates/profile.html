@@ -25,7 +25,6 @@
 </head>
 <body>
     <header th:insert="/fragments/header.html"></header>
-
     <div class="ui main container">
         <section>
             <h3 class="ui top attached header">
@@ -50,7 +49,7 @@
                         </div>
                         <i class="large user middle aligned icon"></i>
                         <div class="content">
-                            <div class="header">Username</div>
+                            <div class="header">Username<span th:if="${blacklisted}"><b style="color:red"> (Blacklisted) </b></span> </div>
                             <span th:text="${currentUser.username}"></span>
                         </div>
                     </div>
@@ -181,7 +180,6 @@
             </div>
         </section>
     </div>
-
     <footer th:insert="/fragments/footer.html"></footer>
 
     <script>

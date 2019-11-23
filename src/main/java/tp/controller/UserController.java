@@ -19,6 +19,7 @@ import tp.service.UserDetailsImpl;
 import tp.service.UserService;
 
 import javax.validation.Valid;
+import java.sql.*;
 
 @Controller
 public class UserController {
@@ -46,11 +47,46 @@ public class UserController {
         } else if (user.getType().equals("locataire")) {
             propertiesList = propertyService.findPropertiesByTenant(user.getId());
         }
-
+        modelAndView.addObject("blacklisted",this.isBlacklisted(user));
         modelAndView.addObject("currentUser", user);
         modelAndView.addObject("pageTitle", "Profil " + user.getType());
         modelAndView.addObject("properties", propertiesList.getPropertyList());
         return modelAndView;
+    }
+
+    public boolean isBlacklisted(User u){
+        try{
+            Class c = Class.forName("com.mysql.cj.jdbc.Driver") ;
+            Driver pilote = (Driver)c.newInstance() ;
+            // enregistrement du pilote auprès du DriverManager
+            DriverManager.registerDriver(pilote);
+            // Protocole de connexion
+            String protocole =  "jdbc:mysql:" ;
+
+            String ip =  "database-progcomp.cj8nj7qo4jwg.us-east-1.rds.amazonaws.com" ;
+            String port =  "3306" ;
+            String nomBase =  "progcomp_db" ;
+            // Chaîne de connexion
+            String conString = protocole +  "//" + ip +  ":" + port +  "/" + nomBase ;
+
+            String nomConnexion =  "admin" ;
+            String motDePasse =  "antoine23" ;
+            // Connexion
+            Connection con = DriverManager.getConnection(conString, nomConnexion, motDePasse) ;
+
+
+            String sql = "SELECT * FROM blacklist";
+            Statement smt = con.createStatement() ;
+            ResultSet rs = smt.executeQuery(sql) ;
+
+            while (rs.next()){
+                if(rs.getString("username").equals(u.getUsername()))return true;
+            }
+            return false;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @PostMapping("/profile/update")
