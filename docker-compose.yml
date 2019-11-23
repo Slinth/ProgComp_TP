@@ -1,10 +1,17 @@
 version: '3'
 services:
   web:
-    build: .
+    build: 
+      context : .
+      dockerfile : Dockerfile
     ports:
       - "8080:8080"
     links:
       - "bd"
   bd:
-    image: "progcomp_bd"
+    build: 
+      context : .
+      dockerfile : Dockerfilebd
+    ports:
+      - "9001:9001"
+    #image: "progcomp_bd"
