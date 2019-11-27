@@ -16,7 +16,7 @@
     <title>Réservation d'un bien</title>
 </head>
 <body>
-<header th:insert="/fragments/header.html"></header>
+<header th:insert="fragments/header.html"></header>
 <div th:if="${validated}" class="ui main text container">
     <h1>Réception de votre réservation</h1>
     <p>Elle sera traité par nos services d'ici quelques jours.</p>
@@ -48,6 +48,6 @@
 </div>
 
 
-<footer th:insert="/fragments/footer.html"></footer>
+<footer th:insert="fragments/footer.html"></footer>
 </body>
 </html>

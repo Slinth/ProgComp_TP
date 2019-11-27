@@ -14,7 +14,7 @@
         <title>Aws Lambda</title>
     </head>
     <body>
-        <header th:insert="/fragments/header.html"></header>
+        <header th:insert="fragments/header.html"></header>
 
         <div class="ui main container">
             <div class="ui warning message" th:if="${propertiesList.isEmpty()}" >
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <footer th:insert="/fragments/footer.html"></footer>
+        <footer th:insert="fragments/footer.html"></footer>
 
         <script
                 src="https://code.jquery.com/jquery-3.4.1.js"

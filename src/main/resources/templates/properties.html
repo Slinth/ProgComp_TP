@@ -14,7 +14,7 @@
         <title>Biens</title>
     </head>
     <body>
-        <header th:insert="/fragments/header.html"></header>
+        <header th:insert="fragments/header.html"></header>
         <div class="ui main container">
             <table>
                 <form th:action="@{/properties/filter}" method="get" class="ui form">
@@ -71,7 +71,7 @@ Statut : disponible | attente | occupe"></i>
                 </table>
             </div>
         </div>
-        <footer th:insert="/fragments/footer.html"></footer>
+        <footer th:insert="fragments/footer.html"></footer>
         <script
                 src="https://code.jquery.com/jquery-3.4.1.js"
                 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
