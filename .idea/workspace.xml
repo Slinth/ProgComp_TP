@@ -3,13 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6e0347c9-a1b6-4a99-bd38-6a0b7f1c8514" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/awsLambda-view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/awsLambda-view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/booking.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/kafka-view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/kafka-view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/properties.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/properties.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/validation-view.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/validation-view.html" afterDir="false" />
     </list>
     <list id="2fcc8141-0897-42d5-b75f-83ce03725917" name="Config" comment="Config" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,6 +56,9 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="ProgComp" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -124,7 +122,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.ProgComp [clean build]">
+  <component name="RunManager" selected="Spring Boot.Application">
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Test" />
       <module name="ProgComp_TP.main" />
@@ -208,10 +206,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ProgComp [clean build]" />
         <item itemvalue="Application.Test" />
         <item itemvalue="Docker.Dockerfile" />
         <item itemvalue="Gradle.ProgComp [install]" />
-        <item itemvalue="Gradle.ProgComp [clean build]" />
         <item itemvalue="Gradle.ProgComp [build]" />
       </list>
     </recent_temporary>
@@ -289,7 +287,7 @@
       <workItem from="1574503388614" duration="6958000" />
       <workItem from="1574512555372" duration="2908000" />
       <workItem from="1574515565061" duration="8000" />
-      <workItem from="1574862339475" duration="221000" />
+      <workItem from="1574862339475" duration="5842000" />
     </task>
     <task id="LOCAL-00001" summary="[ADD] Docker">
       <created>1574267870047</created>
@@ -319,7 +317,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574512333104</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[FIX] Fragments pb">
+      <created>1574862614373</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1574862614373</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -343,6 +348,7 @@
     <MESSAGE value="[UDATE] Docker" />
     <MESSAGE value="[ADD] RDS" />
     <MESSAGE value="[UPDATE] Docker-compose" />
-    <option name="LAST_COMMIT_MESSAGE" value="[UPDATE] Docker-compose" />
+    <MESSAGE value="[FIX] Fragments pb" />
+    <option name="LAST_COMMIT_MESSAGE" value="[FIX] Fragments pb" />
   </component>
 </project>
