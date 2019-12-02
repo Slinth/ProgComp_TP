@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e0347c9-a1b6-4a99-bd38-6a0b7f1c8514" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <list id="2fcc8141-0897-42d5-b75f-83ce03725917" name="Config" comment="Config" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -287,7 +286,8 @@
       <workItem from="1574503388614" duration="6958000" />
       <workItem from="1574512555372" duration="2908000" />
       <workItem from="1574515565061" duration="8000" />
-      <workItem from="1574862339475" duration="5842000" />
+      <workItem from="1574862339475" duration="6870000" />
+      <workItem from="1575274590183" duration="3238000" />
     </task>
     <task id="LOCAL-00001" summary="[ADD] Docker">
       <created>1574267870047</created>
@@ -324,7 +324,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574862614373</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[ADD] Docker AWS">
+      <created>1574875273808</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1574875273808</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,6 +356,7 @@
     <MESSAGE value="[ADD] RDS" />
     <MESSAGE value="[UPDATE] Docker-compose" />
     <MESSAGE value="[FIX] Fragments pb" />
-    <option name="LAST_COMMIT_MESSAGE" value="[FIX] Fragments pb" />
+    <MESSAGE value="[ADD] Docker AWS" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ADD] Docker AWS" />
   </component>
 </project>
